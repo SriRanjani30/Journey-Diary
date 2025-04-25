@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Diary Web App</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0e5d8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('Images/Homeback.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            width: 300px;
+            text-align: center;
+        }
+        h1 {
+            color: #6a4c93;
+            margin-bottom: 20px;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        button {
+            background-color: #6a4c93;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #5a3e7a;
+        }
+        .link {
+            margin-top: 15px;
+            color: #6a4c93;
+            text-decoration: none;
+        }
+        .link:hover {
+            text-decoration: underline;
+        }
+        .generator {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Create Your Account</h1>
+    <form id="signupForm" action="signup.php" method="POST" onsubmit="return validateForm()">
+        <input type="text" name="username" id="username" placeholder="Username" required>
+        <input type="password" name="password" id="password" placeholder="Password" required>
+        <input type="password" id="repeatPassword" placeholder="Repeat Password" required>
+        <button type="submit">Sign Up</button>
+    </form>
+    <div class="generator">
+        <button type="button" onclick="generatePassword()">Generate Random Password</button>
+        <p id="generatedPassword" style="margin-top: 10px; color: #6a4c93;"></p>
+    </div>
+    <p>Already have an account? <a href="login.html" class="link">Login</a></p>
+</div>
+
+<script>
+    function validateForm() {
+        const password = document.getElementById('password').value;
+        const repeatPassword = document.getElementById('repeatPassword').value;
+
+        if (password !== repeatPassword) {
+            alert("Passwords do not match!");
+            return false; 
+        }
+        return true; 
+    }
+
+    function generatePassword() {
+        const length = 16; 
+        const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
+        let password = "";
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * charset.length);
+            password += charset[randomIndex];
+        }
+        document.getElementById('password').value = password; 
+        document.getElementById('generatedPassword').innerText = "Generated Password: " + password; 
+    }
+</script>
+
+</body>
+</html>
